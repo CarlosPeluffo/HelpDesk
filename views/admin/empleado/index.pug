@@ -1,0 +1,67 @@
+extends ../../layout
+
+block content
+        .bg-image(style="\
+            background-image: url('../../images/empleado.jpg'); height: 100vh;")
+            .container(style="color:white")
+                .row
+                    .col-10.ms-auto.text-center
+                        h1(style="font-weight: bold") Gestion de Empleados
+                    .col-2.ms-auto.me-auto
+                        .d-grid.gap-2
+                            button.btn.btn-danger(type="submit", onclick="location.href='/admin'")(style="font-weight: bold") VOLVER 
+                    .col-12.ms-auto.me-auto
+                        if(mensaje.length > 0)
+                            .alert.alert-success.text-center(role='alert')(style="font-weight: bold") #{mensaje}
+                        if(mensajeError.length > 0)
+                            .alert.alert-danger.text-center(role='alert')(style="font-weight: bold") #{mensajeError}
+                .row(style="padding-top: 3rem; padding-bottom: 3rem")
+                    .col-3.me-auto
+                        .d-grid.gap-2
+                            button.btn.btn-success(type="submit", onclick="location.href='/admin/empleado/insertar'")(style="font-weight: bold") Agregar Empleado
+                .row
+                    .col
+                        if (empT>=1) 
+                            table.table
+                                tr.table-primary.text-center
+                                    th DNI
+                                    th Area
+                                    th Nombre
+                                    th Apellido 
+                                    th Mail
+                                    th Celular
+                                    th Estado
+                                    th Fecha Creacion 
+                                    th Actualizar
+                                    th Cambiar Estado
+                                    th Cambiar de Area
+                                each empleado in Empleados
+                                    tr.table-info(style="font-weight: bold")
+                                        td.text-center= empleado.dni
+                                        td.text-center= empleado.id_area ? empleado.Area.nombre_area : "No Asignada"
+                                        td.text-center= empleado.nombre
+                                        td.text-center= empleado.apellido
+                                        td.text-center= empleado.mail
+                                        td.text-center= empleado.celular
+                                        if(empleado.estado == 1 )
+                                            td.text-center.bg-success Activo
+                                        else 
+                                            td.text-center.bg-danger Desactivo
+                                        td.text-center= empleado.fecha_creacion
+                                        td.text-center 
+                                            form(action="/admin/empleado/"+empleado.dni, method="get")
+                                                input.btn.btn-warning(type="submit", value="Actualizar")
+                                        td.text-center
+                                            form(action="/admin/empleado/e/"+empleado.dni, method="get")
+                                                if empleado.estado < 1
+                                                    input.btn.btn-success(type="submit", value="Activar")
+                                                else
+                                                    input.btn.btn-danger(type="submit", value="Desactivar")
+                                        td.text-center 
+                                            form(action="/admin/empleado/a/"+empleado.dni, method="get")
+                                                input.btn.btn-primary(type="submit", value="Reasignar")
+                        else
+                            .col.ms-auto.me-auto.text-center
+                                h3 No se encontraron Empleados registrados
+    
+

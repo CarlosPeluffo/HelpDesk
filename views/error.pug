@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  .bg-image(style="\
+    background-image: url('./images/error.jpg'); height: 100vh;")
+    .container
+      h1= message
+      h2= error.status
+      

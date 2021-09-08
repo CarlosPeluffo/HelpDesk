@@ -1,0 +1,48 @@
+extends ../../layout
+block content
+    .bg-image(style="\
+        background-image: url('../../images/empleado.jpg'); height: 100vh;")
+        .container(style="color:white")
+            .row
+                .col-10.ms-auto.text-center
+                    h1(style="font-weight: bold") Gestion de Clientes
+                .col-2.ms-auto.me-auto
+                    .d-grid.gap-2
+                        button.btn.btn-danger(type="submit", onclick="location.href='/admin'")(style="font-weight: bold") VOLVER 
+                .col-12.ms-auto.me-auto
+                    if(mensaje.length > 0)
+                        .alert.alert-success.text-center(role='alert')(style="font-weight: bold") #{mensaje}
+            .row(style="padding-top: 3rem; padding-bottom: 3rem")
+                .col
+                    if (cliT>=1) 
+                        table.table
+                            tr.table-primary.text-center
+                                th DNI
+                                th Nombre
+                                th Apellido 
+                                th Mail
+                                th Celular
+                                th Estado
+                                th Fecha Creacion 
+                                th Cambiar Estado
+                            each cliente in Clientes
+                                tr.table-info(style="font-weight: bold") 
+                                    td.text-center= cliente.dni
+                                    td.text-center= cliente.nombre
+                                    td.text-center= cliente.apellido
+                                    td.text-center= cliente.mail
+                                    td.text-center= cliente.celular
+                                    if(cliente.estado == 1 )
+                                        td.text-center.bg-success Activo
+                                    else 
+                                        td.text-center.bg-danger Desactivo
+                                    td.text-center= cliente.fecha_creacion
+                                    td.text-center
+                                        form(action="/admin/cliente/"+cliente.dni, method="get")
+                                            if cliente.estado < 1
+                                                input.btn.btn-success(type="submit", value="Activar")
+                                            else
+                                                input.btn.btn-danger(type="submit", value="Desactivar")
+                    else
+                        .col.ms-auto.me-auto.text-center
+                            h3 No se encontraron clientes 

@@ -1,0 +1,28 @@
+extends layout
+
+block content
+    .bg-image(style="\
+    background-image: url('./images/login.jpg'); height: 100vh;")
+        .container-md
+            .row
+                .col-2.ms-auto
+                    h1(style="font-weight: bold") LOGIN
+                .col-2.ms-auto
+                    .d-grid.gap-2                        
+                        button.btn.btn-danger.btn-sm(type="submit", onclick="location.href='/'")(style="font-weight: bold") VOLVER
+                .col-12.ms-auto.me-auto
+                    if(mensajeError.length > 0)
+                        .alert.alert-danger.text-center(role='alert')(style="font-weight: bold") #{mensajeError}
+            .row.align-items-center
+                .col-7.ms-auto.me-auto(style="padding-top: 3rem")
+                    form(action='/login' method='POST')
+                        .mb-3.row
+                            label.col-sm-2.col-form-label.bg-primary(for='mail')(style="font-weight: bold") Email
+                            input.col-sm-10(type='email', name='mail', placeholder='Email', autofocus=true)
+                        .mb-3.row
+                            label.col-sm-2.col-form-label.bg-primary(for='password')(style="font-weight: bold") Contraseña
+                            input.col-sm-10(type='password', name='contraseña', placeholder='Contraseña')
+                        .mb-3.row
+                            .col-sm-6.ms-auto.me-auto
+                                .d-grid.gap-2
+                                    button.btn.btn-success.btn-lg(type='submit') Iniciar Sesión

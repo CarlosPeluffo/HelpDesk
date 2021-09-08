@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "root",
+    "password": "",
+    "database": "help_desk",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "timezone": "-03:00",
+    "useUTC": "false"
+  },
+  "test": {
+    "username": "root",
+    "password": "",
+    "database": "help_desk",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "timezone": "-03:00",
+    "useUTC": "false"
+  },
+  "production": {
+    "username": "root",
+    "password": "",
+    "database": "help_desk",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "timezone": "-03:00",
+    "useUTC": "false"
+  }
+}

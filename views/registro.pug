@@ -1,0 +1,46 @@
+extends layout
+
+block content
+    .bg-image(style="\
+        background-image: url('./images/registro.jpg'); height: 100vh;")
+        .container
+            .row
+                .col-2.ms-auto
+                    h1(style="font-weight: bold") Registro
+                .col-2.ms-auto
+                    .d-grid.gap-2                      
+                        button.btn.btn-danger.btn-sm(type="submit", onclick="location.href='/'")(style="font-weight: bold") VOLVER
+                .col-12.ms-auto.me-auto
+                    if(mensajeError.length > 0)
+                        .alert.alert-danger(role='alert') #{mensajeError}
+            .row
+                .col-7.bg-primary.text-center.ms-auto.me-auto
+                    h5(style="font-weight: bold") Complete y envie el formulario para crearse un usuario:
+            br
+            .row.align-items-center
+                .col-7.ms-auto.me-auto
+                    form(name="registro", action="./singup", method="post")
+                        .mb-3.row
+                            label.col-sm-2.col-form-label.bg-info(for="dni")(style="font-weight: bold") DNI:
+                            input.col-sm-10(type="text" name="dni", id="dni", required)
+                        .mb-3.row
+                            label.col-sm-2.col-form-label.bg-info(for="nombre")(style="font-weight: bold") Nombre: 
+                            input.col-sm-10(type="text" name="nombre" id="nombre" required)
+                        .mb-3.row
+                            label.col-sm-2.col-form-label.bg-info(for="apellido")(style="font-weight: bold") Apellido: 
+                            input.col-sm-10(type="text" name="apellido" id="apellido" required)
+                        .mb-3.row
+                            label.col-sm-2.col-form-label.bg-info(for="mail")(style="font-weight: bold") Mail:
+                            input.col-sm-10(type="email", name="mail" required)
+                        .mb-3.row
+                            label.col-sm-2.col-form-label.bg-info(for="contraseña")(style="font-weight: bold") Contraseña:
+                            input.col-sm-10(type="password", name="contraseña", id="contraseña" required)
+                            #passwordHelpBlock.form-text.bg-light
+                                | Su contraseña debe contener entre 8 y 20 caracteres, conteniendo letras y numeros, y no contener espacios o caracteres especiales
+                        .mb-3.row
+                            label.col-sm-2.col-form-label.bg-info(for="celular")(style="font-weight: bold") Celular:
+                            input.col-sm-10(type="tel", name="celular")
+                        .mb-3.row
+                            .col-sm-6.ms-auto.me-auto
+                                .d-grid.gap-2
+                                    input.btn.btn-success.btn-lg(type="submit", onclick="return validarRegistro()",value="Enviar Solicitud")

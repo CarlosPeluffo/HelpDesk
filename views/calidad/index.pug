@@ -1,0 +1,65 @@
+extends ../layout 
+
+block content
+  .bg-image(style="\
+        background-image: url('./images/empleado.jpg'); height: 150vh;")
+    .container(style="color:white")
+        .row
+            .col-10.ms-auto.text-center
+                h1(style="font-weight: bold")= title
+            .col-2.ms-auto.me-auto
+                .d-grid.gap-2
+                    button.btn.btn-danger(type="submit" onclick="location.href='/logout'")(style="font-weight: bold") Cerrar Sesión
+        .row 
+            .col-5.me-auto
+                h2(style="font-weight: bold") Bienvenido #{empleado.nombre} #{empleado.apellido}
+            .col-12.ms-auto.me-auto
+                if(mensaje.length > 0)
+                    .alert.alert-success.text-center(role='alert')(style="font-weight: bold") #{mensaje}
+                if(mensajeError.length > 0)
+                    .alert.alert-danger.text-center(role='alert')(style="font-weight: bold") #{mensajeError}
+                if(a > 0)
+                    .alert.alert-danger.text-center(role='alert')(style="font-weight: bold") POSEES #{a} NOTIFICACION/ES NUEVA/S
+                else 
+                    .alert.alert-success.text-center(role='alert')(style="font-weight: bold") No hay nuevas notificaciones
+        .row
+            .col
+                button.btn.btn-warning(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal') Cambiar contraseña
+                #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                    .modal-dialog
+                        .modal-content(style="color:black")
+                            .modal-header
+                                h5#exampleModalLabel.modal-title Ingrese su antigua y nueva contraseña
+                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                            .modal-body
+                                .row.align-items-center
+                                    .col-7.ms-auto.me-auto
+                                        form(name="registro", action="calidad/cambiarCont", method="post")
+                                            .mb-3.row
+                                                label(for="antigua") Contraseña actual
+                                                input(type="password", name="antigua")
+                                            .mb-3.row
+                                                label(for="nueva") Contraseña nueva
+                                                input(type="password", name="nueva", id="nueva")
+                                            .mb-3.row
+                                                button.btn.btn-danger(type="submit", onclick="return validarContraseña()") Enviar
+                            .modal-footer
+                                button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Cerrar
+        .row(style="padding-bottom: 1rem;")
+            .col-7.ms-auto
+                button.btn.btn-success.btn-sm(type="submit" onclick="location.href='./calidad'") Refrescar 
+        .row
+            .col-8.ms-auto.me-auto
+                if(notific.length > 0)
+                    table.table
+                        tr.table-primary.text-center
+                            th Fecha
+                            th Estado
+                            th Ver
+                        each notif in notific
+                            tr.table-info(style="font-weight: bold")   
+                                td.text-center= notif.fecha.toLocaleString()
+                                td.text-center= notif.estado
+                                td.text-center 
+                                    form(action="./calidad/ver/"+notif.id_notificacion, method="get")
+                                        input.btn.btn-success.btn-lg(type="submit", value="Ver detalles")

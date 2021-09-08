@@ -1,0 +1,34 @@
+extends ../../layout
+block content
+    .bg-image(style="\
+        background-image: url('../../../images/empleado.jpg'); height: 100vh;")
+        .container(style="color:white")
+            .row
+                .col-10.ms-auto.text-center
+                    h1(style="font-weight: bold") Gestion de Area asignada
+                .col-2.ms-auto.me-auto
+                    .d-grid.gap-2
+                        button.btn.btn-danger(type="submit", onclick="location.href='/admin/empleado'")(style="font-weight: bold") VOLVER
+            .row
+                .col-4.me-auto.text-center
+                    h2 Empleado: #{empleado.nombre} #{empleado.apellido}
+            .row
+                .col-10.ms-auto.text-center
+                    h3 Area actual: #{nombreA}
+            .row.align-items-center
+                .col-7.ms-auto.me-auto
+                    - var url = empleado.dni + "?_method=PUT";
+                    form(action="./"+url, method="post")
+                        .mb-3.row
+                            label.col-sm-3.col-form-label.bg-dark(for="nombre") Area:
+                            select.form-select.form-select-sm(name="area")
+                                option(value= 0 ) No Asignada
+                                each a in area
+                                    if empleado.id_area == a.id_area
+                                        option(value= a.id_area disabled="disabled") #{a.nombre_area}
+                                    else 
+                                        option(value= a.id_area) #{a.nombre_area}
+                        .mb-3.row
+                            .col-sm-6.ms-auto.me-auto
+                                .d-grid.gap-2
+                                    input.btn.btn-success.btn-lg(type="submit", value="Actualizar")

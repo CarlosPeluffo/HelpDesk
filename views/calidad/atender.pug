@@ -1,0 +1,42 @@
+extends ../layout 
+
+block content
+  .bg-image(style="\
+        background-image: url('../../images/empleado.jpg'); height: 150vh;")
+    .container(style="color:white")
+        .row
+            .col-10.ms-auto.text-center
+                h1(style="font-weight: bold") Detalles de la Notificacion
+            .col-2.ms-auto.me-auto
+                .d-grid.gap-2
+                    button.btn.btn-danger(type="submit" onclick="location.href='/calidad'")(style="font-weight: bold") VOLVER 
+        .row(style="padding-top: 1rem; padding-bottom: 1rem;")
+            .col-5.me-auto.text-center
+                h5(style="font-weight: bold") Recibida el: #{notif.fecha.toLocaleString()}
+        .row(style="padding-bottom: 1rem;")
+            .col-5.me-auto.text-center
+                h5(style="font-weight: bold") Detalles: #{notif.descripcion}
+        .row(style="padding-bottom: 1rem;")
+            .col-8.ms-auto
+                form(action="./"+ notif.id_notificacion, method="post")
+                                    input.btn.btn-success(type="submit", value="Marcar notificacion como leída")
+        .row 
+            .col
+                table.table
+                    tr.table-primary.text-center
+                        th Fecha de ingreso al area
+                        th Fechea de egreso del area
+                        th Nro. Ticket
+                        th Detalle de solicitud 
+                        th Detalle de razon de tranferencia
+                        th Area
+                        th Prioridad
+                    each s in solic
+                        tr.table-info(style="font-weight: bold") 
+                            td.text-center= s.fecha_ingreso.toLocaleString()
+                            td.text-center= s.fecha_egreso ? s.fecha_egreso.toLocaleString() : ""
+                            td.text-center= s.Solicitud.nro_ticket
+                            td.text-center= s.Solicitud.detalle
+                            td= s.detalle_razon
+                            td.text-center= s.Area.nombre_area
+                            td.text-center= s.Solicitud.prioridad

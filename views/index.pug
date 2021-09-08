@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  .bg-image(style="\
+    background-image: url('./images/background.png'); height: 100vh;")
+    .container-md
+      .row
+        .col-10.ms-auto.me-3
+          br
+          h1(style="font-weight: bold") Bienvenido a la aplicación de #{title}
+          br
+        .col-12.ms-auto.me-auto
+          if(mensaje.length > 0)
+            .alert.alert-success.text-center(role='alert')(style="font-weight: bold") #{mensaje}
+          if(mensajeError.length > 0)
+            .alert.alert-danger.text-center(role='alert')(style="font-weight: bold") #{mensajeError}
+      .row
+        .col
+          .d-grid.gap-2
+            button.btn.btn-success.btn-lg(type="submit" onclick="location.href='/login'") Acceder
+            button.btn.btn-primary.btn-lg(type="submit" onclick="location.href='/singup'") Registrarse
+        .col-md-6.offset-md-1
+          h5(style="color:blue; font-weight: bold") Seguir solicitud con su Nro. de Ticket:
+          form(action="/seguir", method="post")
+            .mb-3
+              label.col-sm-2.col-form-label.bg-info(for="ticket")(style="font-weight: bold") Nro ticket:
+              input.col-sm-5(type="text", name="ticket", placeholder="inserte el numero de ticket")
+            .mb-3
+              .col-sm-6.ms-auto.me-auto
+                input.btn.btn-warning.btn-sm(type="submit", value="Buscar")

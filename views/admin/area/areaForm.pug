@@ -1,0 +1,24 @@
+extends ../../layout
+
+block content
+    .bg-image(style="\
+        background-image: url('../../images/empleado.jpg'); height: 100vh;")
+        .container(style="color:white")
+            .row
+                .col-10.ms-auto.text-center
+                    h1(style="font-weight: bold") Cargar Area
+                .col-2.ms-auto.me-auto
+                    .d-grid.gap-2
+                        button.btn.btn-danger(type="submit", onclick="location.href='/admin/area'") VOLVER
+            br
+            .row.align-items-center
+                .col-7.ms-auto.me-auto
+                    - var url = area ? area.id_area + "?_method=PUT" : "";
+                    form(action="./"+url, method="post")
+                        .mb-3.row
+                            label.col-sm-3.col-form-label.bg-dark(for="nombre") Nombre del area: 
+                            input(type="text" name="nombre" id="nombre", value=area ? area.nombre_area : "")
+                        .mb-3.row
+                            .col-sm-6.ms-auto.me-auto
+                                .d-grid.gap-2
+                                    input.btn.btn-success.btn-lg(type="submit", onclick="return validarArea()" value=area ? "Actualizar" : "Cargar")

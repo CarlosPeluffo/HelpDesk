@@ -1,0 +1,22 @@
+Administrador cargado por defecto(Es un empleado de gestion)
+admin@admin.com
+contr: 123456789
+--------------------
+peluffo@gmail.com
+contr: 37505706
+-------------------
+magnus_mefisto@gmail.com
+contr: casa1234
+-------------------
+torres@gmail.com
+contr: 14497997
+------------------
+bazan@gmail.com
+contr: 24102007
+------------------
+ortiz@gmail.com
+39919818
+----------------
+natalia@gmail.com
+cont 24678952
+----------------

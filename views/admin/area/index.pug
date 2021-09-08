@@ -1,0 +1,40 @@
+extends ../../layout
+
+block content
+    .bg-image(style="\
+        background-image: url('../../images/empleado.jpg'); height: 100vh;")
+        .container(style="color:white")
+            .row
+                .col-10.ms-auto.text-center
+                    h1(style="font-weight: bold") Gestion de Areas
+                .col-2.ms-auto.me-auto
+                    .d-grid.gap-2
+                        button.btn.btn-danger(type="submit", onclick="location.href='/admin'")(style="font-weight: bold") VOLVER 
+            .row 
+                .col-10.me-auto.text-center
+                    p Las areas: Gestion, Help Desk y Calidad no pueden gestionarse
+                .col-12.ms-auto.me-auto
+                    if(mensaje.length > 0)
+                        .alert.alert-success.text-center(role='alert')(style="font-weight: bold") #{mensaje}
+                    if(mensajeError.length > 0)
+                        .alert.alert-danger.text-center(role='alert')(style="font-weight: bold") #{mensajeError}
+            .row 
+                .col-2.me-auto
+                    .d-grid.gap-2
+                        button.btn.btn-success(type="submit" onclick="location.href='/admin/area/insertar'")(style="font-weight: bold") Agregar area
+            .row
+                .col-8.ms-auto.me-auto
+                    if (areaT>=1) 
+                        table.table
+                            tr.table-primary.text-center
+                                th Nombre
+                                th Actualizar
+                            each area in Areas
+                                tr.table-info(style="font-weight: bold")
+                                    td.text-center= area.nombre_area
+                                    td.text-center
+                                        form(action="/admin/area/"+area.id_area, method="get")
+                                            input.btn.btn-warning(type="submit", value="Actualizar")
+                    else
+                        .col.ms-auto.me-auto.text-center
+                            h3 No se encontraron areas registradas

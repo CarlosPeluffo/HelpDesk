@@ -1,0 +1,69 @@
+extends ../layout
+
+
+block content
+  .bg-image(style="\
+        background-image: url('./images/empleado.jpg'); height: 100vh;")
+    .container(style="color:white")
+      .row
+          .col-10.ms-auto.text-center
+              h1(style="font-weight: bold")= title
+          .col-2.ms-auto.me-auto
+              .d-grid.gap-2
+                  button.btn.btn-danger(type="submit" onclick="location.href='/logout'")(style="font-weight: bold") Cerrar Sesión
+      .row 
+          .col-5.me-auto
+            h2(style="font-weight: bold") Bienvenido #{empleado.nombre} #{empleado.apellido}
+          .col-12.ms-auto.me-auto
+            if(mensaje.length > 0)
+              .alert.alert-success.text-center(role='alert')(style="font-weight: bold") #{mensaje}
+            if(mensajeError.length > 0)
+              .alert.alert-danger.text-center(role='alert')(style="font-weight: bold") #{mensajeError}
+      .row
+        .col
+            button.btn.btn-warning(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal') Cambiar contraseña
+            #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
+                .modal-dialog
+                    .modal-content(style="color:black")
+                        .modal-header
+                            h5#exampleModalLabel.modal-title Ingrese su antigua y nueva contraseña
+                            button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                        .modal-body
+                            .row.align-items-center
+                                .col-7.ms-auto.me-auto
+                                    form(name="registro", action="empleado/cambiarCont", method="post")
+                                        .mb-3.row
+                                            label(for="antigua") Contraseña actual
+                                            input(type="password", name="antigua")
+                                        .mb-3.row
+                                            label(for="nueva") Contraseña nueva
+                                            input(type="password", name="nueva", id="nueva")
+                                        .mb-3.row
+                                            button.btn.btn-danger(type="submit", onclick="return validarContraseña()") Enviar
+                        .modal-footer
+                            button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Cerrar
+      .row
+        .col
+          if(Solicitud.length > 0)
+            .col-5.ms-auto.me-auto.text-center(style="padding-top: 3rem; padding-bottom: 1rem")
+              h5.bg-success(style="font-weight: bold") Estas son las tareas pendientes 
+            table.table 
+                tr.table-primary.text-center
+                    th Fecha de ingreso:
+                    th Detalle
+                    th Prioridad
+                    th Estado
+                    th Resolver
+                each solic in Solicitud
+                    tr.table-info(style="font-weight: bold") 
+                        td.text-center= solic.fecha_ingreso.toLocaleString()
+                        td= solic.Solicitud.detalle
+                        td.text-center= solic.Solicitud.prioridad
+                        td.text-center= solic.estado
+                        td.text-center
+                          - var url = solic.id_solicitud + "/fecha/" + solic.fecha_ingreso;
+                          form(action="empleado/"+url, method="get")
+                            input.btn.btn-success(type="submit", value="Atender")
+          else
+            .col-5.ms-auto.me-auto.text-center(style="padding-top: 3rem; padding-bottom: 1rem")
+              h5.bg-success(style="font-weight: bold") No se encontraron tareas pendientes.

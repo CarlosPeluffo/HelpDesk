@@ -1,0 +1,49 @@
+extends ../layout
+
+block content
+    .bg-image(style="\
+        background-image: url('./images/usuario.jpg'); height: 100vh;")
+        .container
+            .row
+                .col-10.ms-auto.text-center
+                    h1(style="font-weight: bold") Bienvenido #{cliente.nombre} #{cliente.apellido}
+                .col-2.ms-auto.me-auto
+                    .d-grid.gap-2
+                        button.btn.btn-danger(type="submit" onclick="location.href='/logout'")(style="font-weight: bold") Cerrar Sesión
+                .col-12.ms-auto.me-auto
+                    if(mensaje.length > 0)
+                        .alert.alert-success.text-center(role='alert')(style="font-weight: bold") #{mensaje}
+                    if(mensajeError.length > 0)
+                        .alert.alert-danger.text-center(role='alert')(style="font-weight: bold") #{mensajeError}
+                    if(ticket.length > 0)
+                        .alert.alert-success.text-center(role='alert')(style="font-weight: bold") #{ticket}
+            .row(style="padding-top: 3rem; padding-bottom: 3rem")
+                .col
+                    .d-grid.gap-2
+                        button.btn.btn-success(type="submit" onclick="location.href='./cliente/solicitud'")(style="font-weight: bold") Crear Solicitud
+                .col
+                    .d-grid.gap-2
+                        button.btn.btn-warning(type="submit" onclick="location.href='./cliente/actualizar'")(style="font-weight: bold") Editar Datos de usuario
+            .row
+                .col
+                    if(solicitud.length > 0)
+                        table.table
+                            tr.table-primary.text-center
+                                th Nro. Ticket
+                                th Detalle
+                                th Tipo 
+                                th Fecha
+                                th Seguir
+                            each solic in solicitud
+                                tr.table-info(style="font-weight: bold")
+                                    td.text-center= solic.nro_ticket
+                                    td= solic.detalle
+                                    td.text-center= solic.tipo 
+                                    td.text-center= solic.fecha_solicitud.toLocaleString()
+                                    td.text-center 
+                                        form(action="/cliente/solicitud/"+solic.id_solicitud, method="get")
+                                            input.btn.btn-success(type="submit", value="Seguir")
+                    else 
+                        h4 No ha creado solicitudes todavia.
+                    br
+                    br

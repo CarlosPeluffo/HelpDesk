@@ -1,0 +1,39 @@
+---------------------------------
+habilitar/deshabilitar nuestro servidor para que pueda ejecutar eventos de manera permanente:
+(C:\xampp\mysql\bin)
+editar archivo my.ini con: event_scheduler = on
+
+habilitar/deshabilitar nuestro servidor para que pueda ejecutar eventos:
+(al reiniciar el xampp se deshabilita)
+
+SET GLOBAL event_scheduler = ON;/ OFF;
+
+habilitar/deshabilitar evento:
+ALTER EVENT nombre_evento ENABLE / DISABLE
+
+mostrar todos los eventos:
+SHOW EVENTS
+
+Eliminar evento:
+DROP EVENT nombre_evento;
+--------------------------------
+Eventos creados
+
+DELIMITER $$
+CREATE OR REPLACE EVENT control_quince
+ON SCHEDULE EVERY 15 SECOND ON COMPLETION PRESERVE
+DO
+	BEGIN 
+		CALL quince_dias();
+		CALL treinta_horas();
+END;
+$$
+DELIMITER $$
+CREATE OR REPLACE EVENT control_treinta
+ON SCHEDULE EVERY 15 SECOND ON COMPLETION PRESERVE
+DO
+	BEGIN 
+		
+		CALL treinta_horas();
+END;
+$$

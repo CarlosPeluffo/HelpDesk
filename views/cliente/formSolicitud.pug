@@ -1,0 +1,29 @@
+extends ../layout
+
+block content
+    .bg-image(style="\
+        background-image: url('../../images/usuario.jpg'); height: 100vh;")
+        .container
+            .row
+                .col-10.ms-auto.text-center
+                    h1(style="font-weight: bold") Crear nueva solicitud de ayuda 
+                .col-2.ms-auto.me-auto
+                    .d-grid.gap-2
+                        button.btn.btn-danger(type="submit", onclick="location.href='/cliente'")(style="font-weight: bold") VOLVER
+            .row.align-items-center
+                .col-7.ms-auto.me-auto
+                    form(name="solicitud", action="./solicitud", method="post")
+                        .mb-3.row
+                            label.col-sm-2.col-form-label.bg-info(for="detalle") Detalle
+                            textarea(id="detalle", name="detalle", cols="30", rows="5", minlength="20" ,maxlength="200")
+                        .mb-3.row
+                            label.col-sm-5.col-form-label.bg-info(for="tipo") Seleccione el tipo de solicitud
+                            select.form-select.form-select-sm(name="tipo")
+                                option(value="reclamo") Reclamo 
+                                option(value="compra") Compra
+                                option(value="incidente") Incidente 
+                                option(value="informacion") Informacion
+                        .mb-3.row
+                            .col-sm-6.ms-auto.me-auto
+                                .d-grid.gap-2
+                                    button.btn.btn-success.btn-lg(type="submit", onclick="return validarTextArea()")(style="font-weight: bold") Enviar
